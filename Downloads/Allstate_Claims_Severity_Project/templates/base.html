@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Allstate ML Dashboard{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="header">
+    <h1>Allstate Claims Severity Dashboard</h1>
+    <p>Dataset: <strong>Allstate Claims Severity Prediction</strong></p>
+</header>
+
+<div class="layout">
+    <aside class="sidebar">
+        <h2>Menu</h2>
+        <a href="{{ url_for('home') }}" class="menu-btn">Home</a>
+        <a href="{{ url_for('load_page') }}" class="menu-btn">Load Data</a>
+        <a href="{{ url_for('eda_page') }}" class="menu-btn">EDA</a>
+        <a href="{{ url_for('preprocessing_page') }}" class="menu-btn">Preprocessing</a>
+        <a href="{{ url_for('feature_engg_page') }}" class="menu-btn">Feature Engg</a>
+    </aside>
+
+    <main class="content">
+        {% block content %}{% endblock %}
+    </main>
+</div>
+
+<footer class="footer">
+    <p>Machine Learning Dashboard | Flask Application</p>
+</footer>
+</body>
+</html>

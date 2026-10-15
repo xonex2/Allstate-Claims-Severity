@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}Preprocessing{% endblock %}
+
+{% block content %}
+<h1>Data Preprocessing &amp; Linear Regression Prep</h1>
+<p class="hint">Compare null-value filling and null-value removing before creating numeric features for Linear Regression.</p>
+
+{% if error %}
+    <div class="alert alert-error">
+        <strong>Could not run preprocessing:</strong> {{ error }}
+    </div>
+{% else %}
+
+<div class="summary-grid">
+    <div class="summary-box">
+        <h3>Raw Data</h3>
+        <ul>
+            <li>Rows: <strong>{{ report.raw.rows }}</strong></li>
+            <li>Columns: <strong>{{ report.raw.cols }}</strong></li>
+            <li>Null values: <strong>{{ report.raw.missing_total }}</strong></li>
+            <li>Duplicate rows: <strong>{{ report.raw.duplicate_rows }}</strong></li>
+        </ul>
+    </div>
+
+    <div class="summary-box">
+        <h3>Null Filling</h3>
+        <ul>
+            <li>Rows kept: <strong>{{ report.filled.rows }}</strong></li>
+            <li>Null values after fill: <strong>{{ report.filled.missing_total }}</strong></li>
+        </ul>
+        <p class="hint">Numeric columns use median values; categorical columns use mode values.</p>
+    </div>
+
+    <div class="summary-box">
+        <h3>Null Removing</h3>
+        <ul>
+            <li>Rows after drop: <strong>{{ report.removed.rows }}</strong></li>
+            <li>Null values after drop: <strong>{{ report.removed.missing_total }}</strong></li>
+        </ul>
+        <p class="hint">Rows containing any null value are removed.</p>
+    </div>
+</div>
+
+{% if report.null_columns %}
+<h2>Columns With Null Values</h2>
+<div class="table-scroll">
+    <table class="data-table">
+        <thead>
+            <tr><th>Column</th><th>Null Count</th></tr>
+        </thead>
+        <tbody>
+            {% for column, count in report.null_columns.items() %}
+            <tr><td>{{ column }}</td><td>{{ count }}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+<h2>Linear Regression Dataset</h2>
+<div class="summary-grid">
+    <div class="summary-box">
+        <h3>Model Setup</h3>
+        <ul>
+            <li>Target: <strong>{{ report.regression.target }}</strong></li>
+            <li>Features: <strong>{{ report.regression.feature_count }}</strong></li>
+            <li>Train rows: <strong>{{ report.regression.train_rows }}</strong></li>
+            <li>Test rows: <strong>{{ report.regression.test_rows }}</strong></li>
+        </ul>
+    </div>
+</div>
+
+<h2>Sample Numeric Features</h2>
+<div class="table-scroll">
+    <table class="data-table">
+        <thead>
+            <tr>
+                {% for column in report.regression.sample_columns %}
+                <th>{{ column }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in report.regression.sample_rows %}
+            <tr>
+                {% for column in report.regression.sample_columns %}
+                <td>{{ row[column] }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endif %}
+{% endblock %}

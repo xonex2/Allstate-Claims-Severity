@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Allstate Dashboard Home{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Claims Severity Analysis</h1>
+    <p>
+        A first-review dashboard for loading the Allstate claims dataset,
+        cleaning it, exploring claim loss patterns, and preparing ML features.
+    </p>
+</section>
+
+<section class="card-grid">
+    <a class="card" href="{{ url_for('load_page') }}">
+        <h2>Data Loading</h2>
+        <p>Load the raw CSV, clean missing values, and preview rows and schema.</p>
+    </a>
+
+    <a class="card" href="{{ url_for('eda_page') }}">
+        <h2>Exploratory Data Analysis</h2>
+        <p>View summary statistics, loss distribution, correlations, and charts.</p>
+    </a>
+
+    <a class="card" href="{{ url_for('preprocessing_page') }}">
+        <h2>Preprocessing</h2>
+        <p>Fill null values, remove null rows, and prepare Linear Regression data.</p>
+    </a>
+
+    <a class="card" href="{{ url_for('feature_engg_page') }}">
+        <h2>Feature Engineering</h2>
+        <p>Normalize continuous columns and encode categorical claim features.</p>
+    </a>
+
+    <div class="card card-disabled">
+        <h2>Predict</h2>
+        <p>Coming soon: train the final model and estimate insurance claim loss.</p>
+    </div>
+</section>
+
+<section class="dataset-note">
+    <h3>Dataset</h3>
+    <p>
+        The app runs with the included sample <code>data/train.csv</code>.
+        To use the full Kaggle dataset later, replace it with the real
+        Allstate <code>train.csv</code>. The target column is <code>loss</code>.
+    </p>
+</section>
+{% endblock %}

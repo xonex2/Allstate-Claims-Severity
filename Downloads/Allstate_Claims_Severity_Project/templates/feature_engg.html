@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Feature Engineering{% endblock %}
+
+{% block content %}
+<h1>Feature Engineering</h1>
+<p class="hint">Model-ready transformations for Allstate claims severity features.</p>
+
+{% if error %}
+    <div class="alert alert-error">
+        <strong>Could not run feature engineering:</strong> {{ error }}
+    </div>
+{% else %}
+
+<h2>MinMaxScaler Normalization</h2>
+<div class="table-scroll">
+    <table class="data-table">
+        <thead>
+            <tr>
+                {% for column in columns %}
+                <th>{{ column }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in train_rows %}
+            <tr>
+                {% for element in row %}
+                <td>{{ element }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<h2>StandardScaler Standardization</h2>
+<div class="table-scroll">
+    <table class="data-table">
+        <thead>
+            <tr>
+                {% for column in standard_columns %}
+                <th>{{ column }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in standard_train_rows %}
+            <tr>
+                {% for element in row %}
+                <td>{{ element }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<h2>OneHotEncoder Categorical Encoding</h2>
+<div class="table-scroll">
+    <table class="data-table">
+        <thead>
+            <tr>
+                {% for column in encoded_columns %}
+                <th>{{ column }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in encoded_train_rows %}
+            <tr>
+                {% for element in row %}
+                <td>{{ element }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endif %}
+{% endblock %}
