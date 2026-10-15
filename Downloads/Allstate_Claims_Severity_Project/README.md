@@ -51,3 +51,4 @@ Then open the same URL:
 ```text
 http://127.0.0.1:8000
 ```
+# Allstate-Claims-Severity
